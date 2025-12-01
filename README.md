@@ -1,6 +1,6 @@
 # Architecture as a Service
 
-> **AI-Powered Azure Architecture Diagram Generator** - Transform natural language into professional, editable architecture diagrams
+> **AI-Enabled Azure Architecture Diagram Generator** - Transform natural language into professional, editable architecture diagrams
 
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![Flask](https://img.shields.io/badge/flask-3.0.0-green.svg)](https://flask.palletsprojects.com/)
