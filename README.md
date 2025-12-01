@@ -213,12 +213,6 @@ GET /api/health
 
 ---
 
-##  License
-
-MIT License - see main repository for details
-
----
-
 ##  Acknowledgments
 
 - [Diagrams](https://diagrams.mingrammer.com/) - Python diagram library
