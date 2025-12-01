@@ -1,0 +1,849 @@
+digraph "Create a high-level Azure cloud architecture diagram for an AI-powered Infrastructure Modernization Platform with MCP (Model Context \
+Protocol) integration:
+Core Components:
+
+Primary Input Layer:
+
+Legacy Infrastructure Repositories (600+ repos: 400 Terraform, 200 \
+BICEP)
+GitHub/Azure DevOps repositories
+Source code and infrastructure-as-code files
+
+
+AI Reference Knowledge Base (via MCP):
+
+Confluence \
+MCP Server (organizational standards, internal documentation)
+PDF MCP Server (best practices guides, migration playbooks)
+ServiceNow \
+MCP Server (approved patterns, change management policies, CMDB)
+Microsoft Well-Architected Framework MCP Server (Azure design principles)
+\
+Azure Verified Modules Documentation MCP Server (AVM standards and templates)
+MCP Context Aggregation Service
+
+
+AI Processing Engine:
+
+\
+Azure OpenAI Service (GPT-4) - code analysis and transformation
+MCP Context Injection - enriches prompts with guidance from knowledge \
+base
+Azure Cognitive Services - document understanding and pattern recognition
+Migration logic and transformation rules engine
+
+
+\
+Application/Orchestration Layer:
+
+Azure Container Apps - migration orchestration service
+API Management - service exposure and gateway
+\
+Workflow Engine - migration pipeline coordination
+Validation and Quality Gates service
+
+
+Data/State Layer:
+
+Azure SQL Database - \
+migration tracking, audit logs, metadata
+Azure Storage Account (Blob) - staged repositories, transformation artifacts
+Azure Cosmos \
+DB - MCP context cache and session management
+Azure Redis Cache - performance optimization
+
+
+Output Layer:
+
+Azure Verified Modules (\
+AVM) compliant code
+Transformed infrastructure code
+Migration reports and documentation
+Compliance validation results
+
+
+Supporting \
+Infrastructure:
+
+Azure Monitor & Application Insights - observability and diagnostics
+Azure Key Vault - secrets and credentials \
+management
+Azure Virtual Network - network isolation
+Azure Private Endpoints - secure connectivity
+Azure DevOps/GitHub Actions - \
+CI/CD automation
+
+
+
+Architecture Requirements:
+
+Clearly distinguish PRIMARY INPUT (Terraform/BICEP repos) from REFERENCE SOURCES (\
+Confluence, PDF, SNOW, WAF, AVM docs)
+Show how MCP servers provide contextual guidance to Azure OpenAI during transformation
+Display \
+the flow: Legacy Code → AI Analysis (with MCP guidance) → AVM Output
+Indicate how reference sources improve transformation quality \
+and compliance
+Show real-time MCP context retrieval during migration processing
+Highlight the feedback loop where AI queries reference \
+sources for decision-making
+
+Visual Style:
+
+Use official Azure icon set
+Differentiate visually between:
+
+PRIMARY DATA FLOW (bold/\
+solid lines): Terraform/BICEP → Processing → AVM
+REFERENCE/GUIDANCE FLOW (dashed lines): Knowledge sources → MCP → AI enrichment
+
+
+\
+Color-code layers: Input (blue), MCP/Reference (green), AI Processing (purple), Storage (orange), Output (red)
+Use clear directional \
+arrows with labels
+Show MCP as middleware providing \"just-in-time\" context
+
+Key Technical Details:
+
+Mark MCP servers as \"read-only \
+reference\" vs \"processing pipeline\"
+Show how AI queries MCP knowledge base during each transformation
+Indicate context enrichment: \"\
+AI asks: 'What's the AVM pattern for this?' → MCP retrieves → AI applies\"
+Display async patterns for reference data caching
+\
+Show phased rollout (Year 1: Terraform 400 repos, Year 2: BICEP 200 repos, Year 3: Custom AVM)
+
+Layout Guidance:
+
+Top section: Reference \
+Knowledge Sources (Confluence, PDF, SNOW, WAF, AVM docs) connected via MCP
+Center section: Main processing flow (Legacy Repos → \
+AI + MCP → Transformed Code)
+Bottom section: Azure infrastructure services (storage, monitoring, security)
+Clearly show MCP as \
+the \"brain/memory\" that AI consults during transformation" {
+	graph [bb="0,0,5543,2445.4",
+		bgcolor=white,
+		compound=true,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Create a high-level Azure cloud architecture diagram for an AI-powered Infrastructure Modernization Platform with MCP (Model Context \
+Protocol) integration:
+Core Components:
+
+Primary Input Layer:
+
+Legacy Infrastructure Repositories (600+ repos: 400 Terraform, 200 \
+BICEP)
+GitHub/Azure DevOps repositories
+Source code and infrastructure-as-code files
+
+
+AI Reference Knowledge Base (via MCP):
+
+Confluence \
+MCP Server (organizational standards, internal documentation)
+PDF MCP Server (best practices guides, migration playbooks)
+ServiceNow \
+MCP Server (approved patterns, change management policies, CMDB)
+Microsoft Well-Architected Framework MCP Server (Azure design principles)
+\
+Azure Verified Modules Documentation MCP Server (AVM standards and templates)
+MCP Context Aggregation Service
+
+
+AI Processing Engine:
+
+\
+Azure OpenAI Service (GPT-4) - code analysis and transformation
+MCP Context Injection - enriches prompts with guidance from knowledge \
+base
+Azure Cognitive Services - document understanding and pattern recognition
+Migration logic and transformation rules engine
+
+
+\
+Application/Orchestration Layer:
+
+Azure Container Apps - migration orchestration service
+API Management - service exposure and gateway
+\
+Workflow Engine - migration pipeline coordination
+Validation and Quality Gates service
+
+
+Data/State Layer:
+
+Azure SQL Database - \
+migration tracking, audit logs, metadata
+Azure Storage Account (Blob) - staged repositories, transformation artifacts
+Azure Cosmos \
+DB - MCP context cache and session management
+Azure Redis Cache - performance optimization
+
+
+Output Layer:
+
+Azure Verified Modules (\
+AVM) compliant code
+Transformed infrastructure code
+Migration reports and documentation
+Compliance validation results
+
+
+Supporting \
+Infrastructure:
+
+Azure Monitor & Application Insights - observability and diagnostics
+Azure Key Vault - secrets and credentials \
+management
+Azure Virtual Network - network isolation
+Azure Private Endpoints - secure connectivity
+Azure DevOps/GitHub Actions - \
+CI/CD automation
+
+
+
+Architecture Requirements:
+
+Clearly distinguish PRIMARY INPUT (Terraform/BICEP repos) from REFERENCE SOURCES (\
+Confluence, PDF, SNOW, WAF, AVM docs)
+Show how MCP servers provide contextual guidance to Azure OpenAI during transformation
+Display \
+the flow: Legacy Code → AI Analysis (with MCP guidance) → AVM Output
+Indicate how reference sources improve transformation quality \
+and compliance
+Show real-time MCP context retrieval during migration processing
+Highlight the feedback loop where AI queries reference \
+sources for decision-making
+
+Visual Style:
+
+Use official Azure icon set
+Differentiate visually between:
+
+PRIMARY DATA FLOW (bold/\
+solid lines): Terraform/BICEP → Processing → AVM
+REFERENCE/GUIDANCE FLOW (dashed lines): Knowledge sources → MCP → AI enrichment
+
+
+\
+Color-code layers: Input (blue), MCP/Reference (green), AI Processing (purple), Storage (orange), Output (red)
+Use clear directional \
+arrows with labels
+Show MCP as middleware providing \"just-in-time\" context
+
+Key Technical Details:
+
+Mark MCP servers as \"read-only \
+reference\" vs \"processing pipeline\"
+Show how AI queries MCP knowledge base during each transformation
+Indicate context enrichment: \"\
+AI asks: 'What's the AVM pattern for this?' → MCP retrieves → AI applies\"
+Display async patterns for reference data caching
+\
+Show phased rollout (Year 1: Terraform 400 repos, Year 2: BICEP 200 repos, Year 3: Custom AVM)
+
+Layout Guidance:
+
+Top section: Reference \
+Knowledge Sources (Confluence, PDF, SNOW, WAF, AVM docs) connected via MCP
+Center section: Main processing flow (Legacy Repos → \
+AI + MCP → Transformed Code)
+Bottom section: Azure infrastructure services (storage, monitoring, security)
+Clearly show MCP as \
+the \"brain/memory\" that AI consults during transformation",
+		lheight=19.22,
+		lp="2771.5,695.88",
+		lwidth=12.91,
+		nodesep=1.0,
+		pad=0.5,
+		rankdir=TB,
+		ranksep=1.5,
+		splines=ortho
+	];
+	node [fixedsize=true,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		height=1.4,
+		imagescale=true,
+		label="\N",
+		labelloc=b,
+		shape=box,
+		style=rounded,
+		width=1.4
+	];
+	edge [color="#7B8894"];
+	subgraph "cluster_Data Layer" {
+		graph [bb="499,1658,1158,2159.1",
+			bgcolor="#F8BBD0",
+			fontname="Sans-Serif",
+			fontsize=14,
+			label="Data Layer",
+			labeljust=l,
+			lheight=0.21,
+			lp="540,2147.6",
+			lwidth=0.92,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		f522eb322fe749b48838a941518730bc	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/onprem/vcs/github.png",
+			label="Source Code Repositories",
+			pos="1088,1746.4",
+			shape=none];
+		"7194fd0542e8425db5846bca1aef048b"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/database/sql-databases.png",
+			label="Migration Tracking Database",
+			pos="742,2024.8",
+			shape=none];
+		"7e1e6e9dcc9449b2a46489b783686c13"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/storage/blob-storage.png",
+			label="Transformation Artifacts Storage",
+			pos="915,2024.8",
+			shape=none];
+		"7e1e6e9dcc9449b2a46489b783686c13" -> f522eb322fe749b48838a941518730bc	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Pushes AVM compliant code (Primary Data Flow)",
+			lp="992.5,1895.6",
+			penwidth=2,
+			pos="e,1037.7,1746.8 931.8,1956.4 931.8,1874.1 931.8,1746.8 931.8,1746.8 931.8,1746.8 1024.7,1746.8 1024.7,1746.8",
+			style=bold];
+		"5091fcf55f264993bd192e0cc3cd5e79"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/database/cosmos-db.png",
+			label="MCP Context Cache",
+			pos="1088,2024.8",
+			shape=none];
+		"6d4864954e2b4e7099e32a9967a1e38c"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/database/cache-for-redis.png",
+			label="Performance Optimization Cache",
+			pos="569,2024.8",
+			shape=none];
+	}
+	subgraph "cluster_Application Layer" {
+		graph [bb="3470,1936.3,5535,2437.4",
+			bgcolor="#FFE0B2",
+			fontname="Sans-Serif",
+			fontsize=14,
+			label="Application Layer",
+			labeljust=l,
+			lheight=0.21,
+			lp="3529.8,2425.9",
+			lwidth=1.44,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		fc3f0be698084141bea65e7bfa55ec6c	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/onprem/compute/server.png",
+			label="MCP Confluence Server",
+			pos="4081,2303",
+			shape=none];
+		f0bc74d134c449f5bba51c38247e940d	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/compute/container-instances.png",
+			label="MCP Context Aggregation Service",
+			pos="3540,2024.8",
+			shape=none];
+		fc3f0be698084141bea65e7bfa55ec6c -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Feeds contextual data (Reference/Guidance Flow) (×5)",
+			lp="3726.2,2173.9",
+			penwidth=2,
+			pos="e,3589.9,2047.8 4081,2235 4081,2159.3 4081,2047.8 4081,2047.8 4081,2047.8 3603,2047.8 3603,2047.8",
+			style=bold];
+		fc3f0be698084141bea65e7bfa55ec6c -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Feeds contextual data (Reference/Guidance Flow) (×5)",
+			lp="4132.2,2173.9",
+			penwidth=2,
+			pos="e,3590,2032.8 4097.8,2234.8 4097.8,2154.8 4097.8,2032.8 4097.8,2032.8 4097.8,2032.8 3603,2032.8 3603,2032.8",
+			style=bold];
+		fc3f0be698084141bea65e7bfa55ec6c -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Feeds contextual data (Reference/Guidance Flow) (×5)",
+			lp="4538.2,2173.9",
+			penwidth=2,
+			pos="e,3590,2077.8 4047.4,2234.8 4047.4,2168.5 4047.4,2077.8 4047.4,2077.8 4047.4,2077.8 3603.1,2077.8 3603.1,2077.8",
+			style=bold];
+		fc3f0be698084141bea65e7bfa55ec6c -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Feeds contextual data (Reference/Guidance Flow) (×5)",
+			lp="4944.2,2173.9",
+			penwidth=2,
+			pos="e,3590.2,2016.8 4114.6,2234.8 4114.6,2150.2 4114.6,2016.8 4114.6,2016.8 4114.6,2016.8 3603.3,2016.8 3603.3,2016.8",
+			style=bold];
+		fc3f0be698084141bea65e7bfa55ec6c -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Feeds contextual data (Reference/Guidance Flow) (×5)",
+			lp="5350.2,2173.9",
+			penwidth=2,
+			pos="e,3590.3,2062.8 4064.2,2234.8 4064.2,2163.8 4064.2,2062.8 4064.2,2062.8 4064.2,2062.8 3603.3,2062.8 3603.3,2062.8",
+			style=bold];
+		"8b2abf41e1614a5eab09d906e6a6545f"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/onprem/compute/server.png",
+			label="MCP PDF Server",
+			pos="4254,2303",
+			shape=none];
+		ec733f82008743739f90d20476b6567b	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/onprem/compute/server.png",
+			label="MCP ServiceNow Server",
+			pos="4427,2303",
+			shape=none];
+		"5c07bb057edb49009e9281ef7903233d"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/onprem/compute/server.png",
+			label="MCP WAF Server",
+			pos="4600,2303",
+			shape=none];
+		"9c51c42de0bc46ed93012e52a827a89b"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/onprem/compute/server.png",
+			label="MCP AVM Docs Server",
+			pos="4773,2303",
+			shape=none];
+		f0bc74d134c449f5bba51c38247e940d -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Queries MCP for rules/guidance (Reference/Guidance Flow) (×5)",
+			lp="-17,1399.8",
+			penwidth=2,
+			pos="e,3570.2,1956.5 3565.2,2093.1 3565.2,2110.7 3565.2,2124.8 3565.2,2124.8 3565.2,2124.8 3651.9,2124.8 3651.9,2124.8 3651.9,2124.8 \
+3651.9,1842.8 3651.9,1842.8 3651.9,1842.8 3570.2,1842.8 3570.2,1842.8 3570.2,1842.8 3570.2,1943.4 3570.2,1943.4",
+			style=bold];
+		f0bc74d134c449f5bba51c38247e940d -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Provides contextual rules (Reference/Guidance Flow) (×5)",
+			lp="-17,1399.8",
+			penwidth=2,
+			pos="e,3580.3,1956.8 3577.8,2093 3577.8,2102.3 3577.8,2108.8 3577.8,2108.8 3577.8,2108.8 3621.1,2108.8 3621.1,2108.8 3621.1,2108.8 3621.1,\
+1871.8 3621.1,1871.8 3621.1,1871.8 3580.3,1871.8 3580.3,1871.8 3580.3,1871.8 3580.3,1943.7 3580.3,1943.7",
+			style=bold];
+		"60a413dfcfe543259463a10c4348e262"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/compute/container-instances.png",
+			label="MCP Context Aggregation Service",
+			pos="4946,2303",
+			shape=none];
+		db8e6fc3886e4937aed79097a4e976a8	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/compute/container-instances.png",
+			label="Migration Orchestration Service (ACA)",
+			pos="5119,2303",
+			shape=none];
+		"5df83be923994107be6a0fbf22e8cef4"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/compute/container-instances.png",
+			label="Migration Orchestration Service (ACA)",
+			pos="5292,2303",
+			shape=none];
+		c936cd0790264bab9288a38adf7f8e00	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/compute/container-instances.png",
+			label="Migration Orchestration Service (ACA)",
+			pos="5465,2303",
+			shape=none];
+	}
+	subgraph "cluster_Ai Ml Layer" {
+		graph [bb="3663,1658,3976,1880.8",
+			bgcolor="#E0E0E0",
+			fontname="Sans-Serif",
+			fontsize=14,
+			label="Ai Ml Layer",
+			labeljust=l,
+			lheight=0.21,
+			lp="3705.1,1869.3",
+			lwidth=0.95,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		"189a722b04ad4ac2b2b35805b64fa574"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/ml/cognitive-services.png",
+			label="Azure OpenAI Service (GPT-4)",
+			pos="3733,1746.4",
+			shape=none];
+		"02310844597343f49291d136d59d34c3"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/ml/cognitive-services.png",
+			label="Azure Cognitive Services (Document Understanding)",
+			pos="3906,1746.4",
+			shape=none];
+	}
+	subgraph "cluster_Frontend Layer" {
+		graph [bb="2200,1936.3,2513,2159.1",
+			bgcolor="#BBDEFB",
+			fontname="Sans-Serif",
+			fontsize=14,
+			label="Frontend Layer",
+			labeljust=l,
+			lheight=0.21,
+			lp="2253.8,2147.6",
+			lwidth=1.27,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		"4e0d62ddc311477d80ed89250ed44198"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/integration/api-management.png",
+			label="API Management Gateway",
+			pos="2270,2024.8",
+			shape=none];
+		"055cd63dbbe2450e8da6ba8bd1da17e7"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/integration/api-management.png",
+			label="API Management Gateway",
+			pos="2443,2024.8",
+			shape=none];
+	}
+	subgraph "cluster_Monitoring Layer" {
+		graph [bb="5220,1399.8,5460,1880.8",
+			bgcolor="#B2EBF2",
+			fontname="Sans-Serif",
+			fontsize=14,
+			label="Monitoring Layer",
+			labeljust=l,
+			lheight=0.21,
+			lp="5278.6,1869.3",
+			lwidth=1.41,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		"594d931c93b34ac3888b457ee14e7cb8"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/analytics/log-analytics-workspaces.png",
+			label="Azure Monitor",
+			pos="5390,1746.4",
+			shape=none];
+		bae2f0df6c314975a0dea30744d14d96	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/devops/application-insights.png",
+			label="Application Insights",
+			pos="5290,1488.2",
+			shape=none];
+		"594d931c93b34ac3888b457ee14e7cb8" -> bae2f0df6c314975a0dea30744d14d96	[dir=forward,
+			fontcolor="#2D3436",
+			fontname="Sans-Serif",
+			fontsize=13,
+			label="Aggregates telemetry",
+			lp="5375.8,1617.3",
+			penwidth=2,
+			pos="e,5290.6,1556.4 5339.7,1746.8 5315.1,1746.8 5290.6,1746.8 5290.6,1746.8 5290.6,1746.8 5290.6,1569.5 5290.6,1569.5",
+			style=bold];
+	}
+	subgraph "cluster_Security Layer" {
+		graph [bb="3197,2214.6,3337,2437.4",
+			bgcolor="#E0E0E0",
+			fontname="Sans-Serif",
+			fontsize=14,
+			label="Security Layer",
+			labeljust=l,
+			lheight=0.21,
+			lp="3248.1,2425.9",
+			lwidth=1.20,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		e65cb861291f4e4aa1ad173a42750c48	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/security/key-vaults.png",
+			label="Azure Key Vault",
+			pos="3267,2303",
+			shape=none];
+	}
+	subgraph "cluster_Infrastructure Layer" {
+		graph [bb="632,2214.6,772,2437.4",
+			bgcolor="#D1C4E9",
+			fontname="Sans-Serif",
+			fontsize=14,
+			label="Infrastructure Layer",
+			labeljust=l,
+			lheight=0.21,
+			lp="698.5,2425.9",
+			lwidth=1.62,
+			margin=20,
+			pencolor="#AEB6BE",
+			rankdir=LR,
+			shape=box,
+			style=rounded
+		];
+		"6935f6083ff04650a56560488f507aa9"	[height=1.9,
+			image="/Users/kumam/Documents/GitHub/AaaS/webapp/venv/lib/python3.13/site-packages/resources/azure/network/virtual-networks.png",
+			label="Azure Virtual Network",
+			pos="702,2303",
+			shape=none];
+	}
+	f522eb322fe749b48838a941518730bc -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Ingests legacy code (Primary Data Flow)",
+		lp="2065.1,1895.6",
+		penwidth=2,
+		pos="e,3519.8,1956.4 1138.2,1775.8 1485.8,1775.8 3519.8,1775.8 3519.8,1775.8 3519.8,1775.8 3519.8,1943.4 3519.8,1943.4",
+		style=bold];
+	f522eb322fe749b48838a941518730bc -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Deploys updates",
+		lp="2880.2,1895.6",
+		penwidth=2,
+		pos="e,3529.9,1956.5 1138.2,1755.8 1486.4,1755.8 3529.9,1755.8 3529.9,1755.8 3529.9,1755.8 3529.9,1943.5 3529.9,1943.5",
+		style=bold];
+	f522eb322fe749b48838a941518730bc -> "4e0d62ddc311477d80ed89250ed44198"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Deploys updates",
+		lp="1376.2,1895.6",
+		penwidth=2,
+		pos="e,2253.2,1956.4 1138.1,1795.8 1361.1,1795.8 2253.2,1795.8 2253.2,1795.8 2253.2,1795.8 2253.2,1943.3 2253.2,1943.3",
+		style=bold];
+	"5091fcf55f264993bd192e0cc3cd5e79" -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Serves cached context (Reference/Guidance Flow)",
+		lp="1791,2173.9",
+		penwidth=2,
+		pos="e,3540,2093.1 1062.8,2093.1 1062.8,2131.5 1062.8,2171.8 1062.8,2171.8 1062.8,2171.8 3540,2171.8 3540,2171.8 3540,2171.8 3540,2106.1 \
+3540,2106.1",
+		style=bold];
+	f0bc74d134c449f5bba51c38247e940d -> "7194fd0542e8425db5846bca1aef048b"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Logs migration progress (×5)",
+		lp="950,2173.9",
+		penwidth=2,
+		pos="e,772.4,2092.9 3514.8,2092.9 3514.8,2137.6 3514.8,2187.8 3514.8,2187.8 3514.8,2187.8 772.4,2187.8 772.4,2187.8 772.4,2187.8 772.4,\
+2106 772.4,2106",
+		style=bold];
+	f0bc74d134c449f5bba51c38247e940d -> "7e1e6e9dcc9449b2a46489b783686c13"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Stores transformed code & reports (Primary Data Flow) (×5)",
+		lp="1456,2173.9",
+		penwidth=2,
+		pos="e,898.2,1956.6 3499.7,1956.6 3499.7,1940.4 3499.7,1927.8 3499.7,1927.8 3499.7,1927.8 898.2,1927.8 898.2,1927.8 898.2,1927.8 898.2,\
+1943.6 898.2,1943.6",
+		style=bold];
+	f0bc74d134c449f5bba51c38247e940d -> "5091fcf55f264993bd192e0cc3cd5e79"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Caches aggregated MCP context (Reference/Guidance Flow) (×5)",
+		lp="2145,2173.9",
+		penwidth=2,
+		pos="e,1113.2,2092.9 3502.2,2092.9 3502.2,2124.8 3502.2,2155.8 3502.2,2155.8 3502.2,2155.8 1113.2,2155.8 1113.2,2155.8 1113.2,2155.8 \
+1113.2,2106 1113.2,2106",
+		style=bold];
+	f0bc74d134c449f5bba51c38247e940d -> "6d4864954e2b4e7099e32a9967a1e38c"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Caches session/performance data (×5)",
+		lp="1157,2173.9",
+		penwidth=2,
+		pos="e,569,1956.4 3509.8,1956.4 3509.8,1927.2 3509.8,1899.8 3509.8,1899.8 3509.8,1899.8 569,1899.8 569,1899.8 569,1899.8 569,1943.4 569,\
+1943.4",
+		style=bold];
+	f0bc74d134c449f5bba51c38247e940d -> "189a722b04ad4ac2b2b35805b64fa574"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Sends code for AI analysis (Primary Data Flow) (×5)",
+		lp="3694.5,1895.6",
+		penwidth=2,
+		pos="e,3702.8,1814.7 3590.2,1971.8 3638,1971.8 3702.8,1971.8 3702.8,1971.8 3702.8,1971.8 3702.8,1827.7 3702.8,1827.7",
+		style=bold];
+	f0bc74d134c449f5bba51c38247e940d -> "189a722b04ad4ac2b2b35805b64fa574"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Sends docs for pattern recognition (Primary Data Flow) (×5)",
+		lp="4104.1,1895.6",
+		penwidth=2,
+		pos="e,3722.9,1814.7 3590,1986.8 3644.1,1986.8 3722.9,1986.8 3722.9,1986.8 3722.9,1986.8 3722.9,1827.7 3722.9,1827.7",
+		style=bold];
+	f0bc74d134c449f5bba51c38247e940d -> "189a722b04ad4ac2b2b35805b64fa574"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Injects contextual guidance (Reference/Guidance Flow) (×5)",
+		lp="4538.2,1895.6",
+		penwidth=2,
+		pos="e,3743.1,1814.5 3590.2,2001.8 3650.3,2001.8 3743.1,2001.8 3743.1,2001.8 3743.1,2001.8 3743.1,1827.6 3743.1,1827.6",
+		style=bold];
+	f0bc74d134c449f5bba51c38247e940d -> bae2f0df6c314975a0dea30744d14d96	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Sends telemetry (×5)",
+		lp="5205.2,1746.4",
+		penwidth=2,
+		pos="e,5240,1487.8 3540,1956.5 3540,1811.8 3540,1487.8 3540,1487.8 3540,1487.8 5227,1487.8 5227,1487.8",
+		style=bold];
+	"189a722b04ad4ac2b2b35805b64fa574" -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Returns transformed code (Primary Data Flow) (×2)",
+		lp="4948,1895.6",
+		penwidth=2,
+		pos="e,3560.2,1956.5 3683,1736.8 3632,1736.8 3560.2,1736.8 3560.2,1736.8 3560.2,1736.8 3560.2,1943.5 3560.2,1943.5",
+		style=bold];
+	"189a722b04ad4ac2b2b35805b64fa574" -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Queries MCP for context (e.g., AVM pattern) (Reference/Guidance Flow) (×2)",
+		lp="3235.6,1895.6",
+		penwidth=2,
+		pos="e,3550.1,1956.4 3683,1716.8 3628.9,1716.8 3550.1,1716.8 3550.1,1716.8 3550.1,1716.8 3550.1,1943.4 3550.1,1943.4",
+		style=bold];
+	"189a722b04ad4ac2b2b35805b64fa574" -> bae2f0df6c314975a0dea30744d14d96	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Sends telemetry (×2)",
+		lp="4513.2,1617.3",
+		penwidth=2,
+		pos="e,5240,1522.8 3733,1678.1 3733,1612.3 3733,1522.8 3733,1522.8 3733,1522.8 5226.9,1522.8 5226.9,1522.8",
+		style=bold];
+	"4e0d62ddc311477d80ed89250ed44198" -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Routes API requests (×2)",
+		lp="3150,2173.9",
+		penwidth=2,
+		pos="e,3527.4,2092.9 2270,2092.9 2270,2118.1 2270,2140.8 2270,2140.8 2270,2140.8 3527.4,2140.8 3527.4,2140.8 3527.4,2140.8 3527.4,2105.9 \
+3527.4,2105.9",
+		style=bold];
+	"4e0d62ddc311477d80ed89250ed44198" -> bae2f0df6c314975a0dea30744d14d96	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Sends telemetry (×2)",
+		lp="2510.2,1746.4",
+		penwidth=2,
+		pos="e,5239.8,1453.8 2286.8,1956.4 2286.8,1804.9 2286.8,1453.8 2286.8,1453.8 2286.8,1453.8 5226.7,1453.8 5226.7,1453.8",
+		style=bold];
+	e65cb861291f4e4aa1ad173a42750c48 -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Retrieves secrets",
+		lp="3433.1,2173.9",
+		penwidth=2,
+		pos="e,3489.7,2024.8 3283.8,2235 3283.8,2152.6 3283.8,2024.8 3283.8,2024.8 3283.8,2024.8 3476.7,2024.8 3476.7,2024.8",
+		style=bold];
+	e65cb861291f4e4aa1ad173a42750c48 -> "189a722b04ad4ac2b2b35805b64fa574"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Retrieves secrets",
+		lp="3154.1,2024.8",
+		penwidth=2,
+		pos="e,3682.7,1697.8 3250.2,2234.8 3250.2,2076.5 3250.2,1697.8 3250.2,1697.8 3250.2,1697.8 3669.7,1697.8 3669.7,1697.8",
+		style=bold];
+	e65cb861291f4e4aa1ad173a42750c48 -> "4e0d62ddc311477d80ed89250ed44198"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Retrieves secrets",
+		lp="2784.1,2173.9",
+		penwidth=2,
+		pos="e,2295.2,2092.8 3216.8,2316.8 3017.8,2316.8 2295.2,2316.8 2295.2,2316.8 2295.2,2316.8 2295.2,2105.9 2295.2,2105.9",
+		style=bold];
+	"6935f6083ff04650a56560488f507aa9" -> "7194fd0542e8425db5846bca1aef048b"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Provides network isolation",
+		lp="312.38,2173.9",
+		penwidth=2,
+		pos="e,706.8,2093.1 706.8,2235 706.8,2235 706.8,2106.1 706.8,2106.1",
+		style=bold];
+	"6935f6083ff04650a56560488f507aa9" -> "7e1e6e9dcc9449b2a46489b783686c13"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Provides network isolation",
+		lp="546.38,2173.9",
+		penwidth=2,
+		pos="e,915,2093 752.21,2261.8 815.18,2261.8 915,2261.8 915,2261.8 915,2261.8 915,2106 915,2106",
+		style=bold];
+	"6935f6083ff04650a56560488f507aa9" -> "5091fcf55f264993bd192e0cc3cd5e79"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Provides network isolation",
+		lp="780.38,2173.9",
+		penwidth=2,
+		pos="e,1088,2093 752.07,2289.8 856.51,2289.8 1088,2289.8 1088,2289.8 1088,2289.8 1088,2106 1088,2106",
+		style=bold];
+	"6935f6083ff04650a56560488f507aa9" -> "6d4864954e2b4e7099e32a9967a1e38c"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Provides network isolation",
+		lp="78.375,2173.9",
+		penwidth=2,
+		pos="e,619.4,2024.8 671.6,2235 671.6,2152.6 671.6,2024.8 671.6,2024.8 671.6,2024.8 632.43,2024.8 632.43,2024.8",
+		style=bold];
+	"6935f6083ff04650a56560488f507aa9" -> f0bc74d134c449f5bba51c38247e940d	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Provides network isolation",
+		lp="2991.4,2173.9",
+		penwidth=2,
+		pos="e,3552.6,2093.1 722,2234.8 722,2217 722,2202.8 722,2202.8 722,2202.8 3552.6,2202.8 3552.6,2202.8 3552.6,2202.8 3552.6,2106.1 3552.6,\
+2106.1",
+		style=bold];
+	"6935f6083ff04650a56560488f507aa9" -> "189a722b04ad4ac2b2b35805b64fa574"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Provides network isolation",
+		lp="2715.4,2024.8",
+		penwidth=2,
+		pos="e,3763.2,1814.6 737.2,2235 737.2,2225.4 737.2,2218.8 737.2,2218.8 737.2,2218.8 3763.2,2218.8 3763.2,2218.8 3763.2,2218.8 3763.2,\
+1827.6 3763.2,1827.6",
+		style=bold];
+	"6935f6083ff04650a56560488f507aa9" -> "4e0d62ddc311477d80ed89250ed44198"	[dir=forward,
+		fontcolor="#2D3436",
+		fontname="Sans-Serif",
+		fontsize=13,
+		label="Provides network isolation",
+		lp="2497.4,2173.9",
+		penwidth=2,
+		pos="e,2244.8,2092.8 752.02,2343.8 1017,2343.8 2244.8,2343.8 2244.8,2343.8 2244.8,2343.8 2244.8,2105.8 2244.8,2105.8",
+		style=bold];
+}

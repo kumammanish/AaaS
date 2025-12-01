@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Architecture Diagram Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <div class="mk-logo" title="Manish Kumar">MK</div>
+                </div>
+                <h1> Azure Architecture Diagram Generator</h1>
+                <p class="subtitle">Transform natural language descriptions into professional Azure architecture
+                    diagrams</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Input Section -->
+            <div class="input-section">
+                <h2> Describe Your Architecture</h2>
+                <textarea id="description"
+                    placeholder="Example: Create a 3-tier web application with Application Gateway as frontend, two Web Apps in the middle tier, and SQL Database with Redis cache in the backend."
+                    rows="6"></textarea>
+
+                <div class="options-row">
+                    <div class="option-group">
+                        <label for="format">Output Format:</label>
+                        <select id="format">
+                            <option value="svg">SVG (Editable in draw.io)</option>
+                            <option value="png">PNG (Image)</option>
+                            <option value="pdf">PDF (Document)</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="style">Style:</label>
+                        <select id="style">
+                            <option value="default">Default</option>
+                            <option value="detailed">Detailed</option>
+                            <option value="simple">Simple</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="parseBtn" class="btn btn-secondary">
+                        Preview Components
+                    </button>
+                    <button id="generateBtn" class="btn btn-primary">
+                        Generate Diagram
+                    </button>
+                </div>
+
+                <!-- Examples -->
+                <div class="examples-section">
+                    <h3> Example Architectures</h3>
+                    <div id="examplesContainer" class="examples-grid">
+                        <!-- Examples loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Section -->
+            <div class="output-section">
+                <h2> Generated Diagram</h2>
+
+                <!-- Loading Spinner -->
+                <div id="loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Generating your architecture diagram...</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="error" class="error-message hidden">
+                    <span class="error-icon">⚠️</span>
+                    <p id="errorText"></p>
+                </div>
+
+                <!-- Preview -->
+                <div id="preview" class="preview hidden">
+                    <h3>Components Preview</h3>
+                    <div id="previewContent"></div>
+                </div>
+
+                <!-- Diagram Output -->
+                <div id="diagramOutput" class="diagram-output hidden">
+                    <div class="diagram-header">
+                        <h3>Architecture Diagram</h3>
+                        <button id="downloadBtn" class="btn btn-success">
+                            ⬇️ Download
+                        </button>
+                    </div>
+                    <div id="diagramContainer">
+                        <img id="diagramImage" src="" alt="Generated Architecture Diagram">
+                    </div>
+                    <div id="metadata" class="metadata"></div>
+                </div>
+
+                <!-- Placeholder -->
+                <div id="placeholder" class="placeholder">
+                    <div class="placeholder-icon">📐</div>
+                    <p>Your generated diagram will appear here</p>
+                    <p class="placeholder-hint">Enter a description and click "Generate Diagram" to get started</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-branding">
+                <div class="mk-logo-footer">MK</div>
+                <p class="creator">
+                    Built by <strong><a href="https://kumammanish.github.io" target="_blank">Manish Kumar</a></strong>
+                </p>
+
+            </div>
+            <div class="footer-links">
+                <p>Powered by <a href="https://diagrams.mingrammer.com/" target="_blank">diagrams</a> library</p>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2025 Architecture as a Service. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+
+</html>
