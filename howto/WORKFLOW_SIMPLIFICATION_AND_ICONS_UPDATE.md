@@ -1,44 +1,42 @@
 # Workflow Simplification & New Icon Sets Update
 
-**Status**:  **IMPLEMENTED**
-
 ## 🔄 Repository Workflow
 
 ```mermaid
 graph TD
-    User([User Input]) -->|Text Description| Frontend[Web Frontend]
-    Frontend -->|POST /api/generate| API[Flask API]
+    User([User Input]) -->|Step 1: Text Description| Frontend[Web Frontend<br/>HTML/CSS/JS]
+    Frontend -->|Step 2: POST /api/generate| API[Flask API<br/>Python]
     
     subgraph "Backend Processing"
-        API -->|Description| Parser{Parser Selection}
-        Parser -->|USE_AI_PARSER=False| KW[Keyword Parser]
-        Parser -->|USE_AI_PARSER=True| AI[AI Parser]
+        API -->|Step 3: Description| Parser{Parser Selection}
+        Parser -->|USE_AI_PARSER=False| KW[Keyword Parser<br/>Python Regex]
+        Parser -->|USE_AI_PARSER=True| AI[AI Parser<br/>Python SDKs]
         
-        KW -->|Regex/Dict| Arch[Architecture JSON]
+        KW -->|Step 4: Regex/Dict| Arch[Architecture JSON]
         
-        AI -->|Prompt| LLM[LLM Provider]
-        LLM -->|JSON Response| Arch
+        AI -->|Step 4a: Prompt| LLM[LLM Provider<br/>API]
+        LLM -->|Step 4b: JSON Response| Arch
         
         LLM -.->|Gemini| G[Google Gemini]
         LLM -.->|GPT-4| O[OpenAI]
         LLM -.->|Claude| C[Anthropic]
     end
     
-    Arch -->|JSON| Gen[Diagram Generator]
+    Arch -->|Step 5: JSON| Gen[Diagram Generator<br/>Python]
     
     subgraph "Visualization"
-        Gen -->|Python Diagrams| D[Diagrams Lib]
-        D -->|GraphViz| Render[Render Engine]
-        Render -->|Generate| Files[Output Files]
+        Gen -->|Step 6: Python Diagrams| D[Diagrams Lib<br/>Python]
+        D -->|Step 7: GraphViz| Render[Render Engine<br/>GraphViz/Dot]
+        Render -->|Step 8: Generate| Files[Output Files]
     end
     
     Files -->|.png| PNG[PNG Image]
     Files -->|.dot| DOT[DOT File]
     Files -->|.drawio| DRAW[Draw.io File]
     
-    Files -->|File Paths| API
-    API -->|JSON Response| Frontend
-    Frontend -->|Display| UserView([User View])
+    Files -->|Step 9: File Paths| API
+    API -->|Step 10: JSON Response| Frontend
+    Frontend -->|Step 11: Display| UserView([User View])
     
     style User fill:#e1f5fe,stroke:#01579b
     style Frontend fill:#e3f2fd,stroke:#1565c0
