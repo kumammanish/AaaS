@@ -27,8 +27,14 @@ class AIParser:
     def __init__(self):
         self.provider = os.getenv('AI_PROVIDER', 'gemini').lower()
         self.use_mcp = os.getenv('USE_MCP', 'false').lower() == 'true'
+        
+        # Failover priority: try providers in this order
+        self.failover_providers = self._get_failover_providers()
+        self.current_provider_index = 0
 
         print(f" Initializing AI Parser: {self.provider}")
+        if len(self.failover_providers) > 1:
+            print(f" Failover enabled: {' → '.join(self.failover_providers)}")
         if self.use_mcp:
             print(f" MCP enabled for Azure knowledge")
 
@@ -37,8 +43,30 @@ class AIParser:
         # Azure service type mappings
         self.service_types = self._get_service_types()
 
-    def setup_ai_client(self):
+    def _get_failover_providers(self) -> List[str]:
+        """Get list of available providers for failover"""
+        providers = []
+        
+        # Start with primary provider
+        providers.append(self.provider)
+        
+        # Add other providers that have API keys configured
+        if self.provider != 'gemini' and os.getenv('GOOGLE_API_KEY'):
+            providers.append('gemini')
+        if self.provider != 'openai' and os.getenv('OPENAI_API_KEY'):
+            providers.append('openai')
+        if self.provider != 'anthropic' and os.getenv('ANTHROPIC_API_KEY'):
+            providers.append('anthropic')
+        if self.provider != 'azure_openai' and os.getenv('AZURE_OPENAI_ENDPOINT') and os.getenv('AZURE_OPENAI_API_KEY'):
+            providers.append('azure_openai')
+        
+        return providers
+
+    def setup_ai_client(self, provider: str = None):
         """Initialize AI client based on provider"""
+        if provider:
+            self.provider = provider
+            
         try:
             if self.provider == 'gemini':
                 import google.generativeai as genai
@@ -48,7 +76,8 @@ class AIParser:
                 genai.configure(api_key=api_key)
                 model_name = os.getenv('GEMINI_MODEL', 'gemini-1.5-flash')
                 self.model = genai.GenerativeModel(model_name)
-                print(f" Gemini initialized: {model_name}")
+                self.client = genai  # Store client for consistency
+                print(f"✓ Gemini initialized: {model_name}")
 
             elif self.provider == 'openai':
                 import openai
@@ -65,9 +94,18 @@ class AIParser:
                 api_key = os.getenv('ANTHROPIC_API_KEY')
                 if not api_key:
                     raise ValueError("ANTHROPIC_API_KEY not set in environment")
-                self.client = anthropic.Anthropic(api_key=api_key)
+                # Try initialization - handle version compatibility
+                try:
+                    self.client = anthropic.Anthropic(api_key=api_key)
+                except TypeError as te:
+                    # Older version might not accept certain parameters
+                    if 'proxies' in str(te):
+                        # Retry without any extra parameters
+                        self.client = anthropic.Client(api_key=api_key)
+                    else:
+                        raise
                 self.model_name = os.getenv('ANTHROPIC_MODEL', 'claude-3-5-sonnet-20241022')
-                print(f" Anthropic initialized: {self.model_name}")
+                print(f"✓ Anthropic initialized: {self.model_name}")
 
             elif self.provider == 'azure_openai':
                 import openai
@@ -122,53 +160,76 @@ class AIParser:
             return self._fallback_parse(description)
 
     def _call_ai(self, description: str) -> str:
-        """Call AI provider with prompt"""
+        """Call AI provider with prompt and automatic failover"""
 
         prompt = self._build_prompt(description)
+        last_error = None
 
-        try:
-            if self.provider == 'gemini':
-                response = self.model.generate_content(prompt)
-                return response.text
+        # Try each provider in failover list
+        for attempt, provider in enumerate(self.failover_providers):
+            try:
+                # Switch to failover provider if needed
+                if provider != self.provider:
+                    print(f" Switching to failover provider: {provider}")
+                    self.setup_ai_client(provider)
 
-            elif self.provider == 'openai':
-                response = self.client.ChatCompletion.create(
-                    model=self.model_name,
-                    messages=[
-                        {"role": "system", "content": "You are an Azure Solutions Architect. Return only valid JSON."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    temperature=0.1,
-                    max_tokens=3000
-                )
-                return response.choices[0].message.content
+                if self.provider == 'gemini':
+                    response = self.model.generate_content(prompt)
+                    return response.text
 
-            elif self.provider == 'anthropic':
-                message = self.client.messages.create(
-                    model=self.model_name,
-                    max_tokens=3000,
-                    temperature=0.1,
-                    messages=[
-                        {"role": "user", "content": prompt}
-                    ]
-                )
-                return message.content[0].text
+                elif self.provider == 'openai':
+                    response = self.client.ChatCompletion.create(
+                        model=self.model_name,
+                        messages=[
+                            {"role": "system", "content": "You are an Azure Solutions Architect. Return only valid JSON."},
+                            {"role": "user", "content": prompt}
+                        ],
+                        temperature=0.1,
+                        max_tokens=3000
+                    )
+                    return response.choices[0].message.content
 
-            elif self.provider == 'azure_openai':
-                response = self.client.ChatCompletion.create(
-                    engine=self.deployment_name,
-                    messages=[
-                        {"role": "system", "content": "You are an Azure Solutions Architect. Return only valid JSON."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    temperature=0.1,
-                    max_tokens=3000
-                )
-                return response.choices[0].message.content
+                elif self.provider == 'anthropic':
+                    message = self.client.messages.create(
+                        model=self.model_name,
+                        max_tokens=3000,
+                        temperature=0.1,
+                        messages=[
+                            {"role": "user", "content": prompt}
+                        ]
+                    )
+                    return message.content[0].text
 
-        except Exception as e:
-            print(f" AI API call failed: {e}")
-            raise
+                elif self.provider == 'azure_openai':
+                    response = self.client.ChatCompletion.create(
+                        engine=self.deployment_name,
+                        messages=[
+                            {"role": "system", "content": "You are an Azure Solutions Architect. Return only valid JSON."},
+                            {"role": "user", "content": prompt}
+                        ],
+                        temperature=0.1,
+                        max_tokens=3000
+                    )
+                    return response.choices[0].message.content
+
+            except Exception as e:
+                last_error = e
+                error_msg = str(e).lower()
+                
+                # Check if it's an auth/quota error
+                if any(keyword in error_msg for keyword in ['auth', 'api key', 'quota', 'rate limit', 'expired', '401', '403', '429']):
+                    print(f" {provider} failed (auth/quota): {e}")
+                    if attempt < len(self.failover_providers) - 1:
+                        print(f" Trying next provider...")
+                        continue
+                else:
+                    # Non-auth error, don't failover
+                    print(f" AI API call failed: {e}")
+                    raise
+        
+        # All providers failed
+        print(f" All {len(self.failover_providers)} providers failed")
+        raise Exception(f"All AI providers exhausted. Last error: {last_error}")
 
     def _build_prompt(self, description: str) -> str:
         """Build AI prompt with Azure knowledge"""
@@ -416,53 +477,73 @@ IMPORTANT:
             raise
 
     def _call_ai_update(self, current: Dict, modification: str) -> str:
-        """Call AI to update architecture"""
+        """Call AI to update architecture with automatic failover"""
         prompt = self._build_update_prompt(current, modification)
+        last_error = None
         
-        # Re-use existing call_ai logic but with new prompt
-        # We need to temporarily swap the prompt builder or just call the low-level provider methods
-        # To avoid code duplication, we'll implement a direct call helper or just duplicate the provider switch here
-        # consistently with _call_ai
+        # Try each provider in failover list
+        for attempt, provider in enumerate(self.failover_providers):
+            try:
+                # Switch to failover provider if needed
+                if provider != self.provider:
+                    print(f" Switching to failover provider: {provider}")
+                    self.setup_ai_client(provider)
+                
+                if self.provider == 'gemini':
+                    response = self.model.generate_content(prompt)
+                    return response.text
+                    
+                elif self.provider == 'openai':
+                    response = self.client.ChatCompletion.create(
+                        model=self.model_name,
+                        messages=[
+                            {"role": "system", "content": "You are an Azure Solutions Architect. Return only valid JSON."},
+                            {"role": "user", "content": prompt}
+                        ],
+                        temperature=0.1,
+                        max_tokens=3000
+                    )
+                    return response.choices[0].message.content
+                    
+                elif self.provider == 'anthropic':
+                    message = self.client.messages.create(
+                        model=self.model_name,
+                        max_tokens=3000,
+                        temperature=0.1,
+                        messages=[{"role": "user", "content": prompt}]
+                    )
+                    return message.content[0].text
+                    
+                elif self.provider == 'azure_openai':
+                    response = self.client.ChatCompletion.create(
+                        engine=self.deployment_name,
+                        messages=[
+                            {"role": "system", "content": "You are an Azure Solutions Architect. Return only valid JSON."},
+                            {"role": "user", "content": prompt}
+                        ],
+                        temperature=0.1,
+                        max_tokens=3000
+                    )
+                    return response.choices[0].message.content
+                      
+            except Exception as e:
+                last_error = e
+                error_msg = str(e).lower()
+                
+                # Check if it's an auth/quota error
+                if any(keyword in error_msg for keyword in ['auth', 'api key', 'quota', 'rate limit', 'expired', '401', '403', '429']):
+                    print(f" {provider} failed (auth/quota): {e}")
+                    if attempt < len(self.failover_providers) - 1:
+                        print(f" Trying next provider...")
+                        continue
+                else:
+                    # Non-auth error, don't failover
+                    print(f" AI Update API call failed: {e}")
+                    raise
         
-        try:
-            if self.provider == 'gemini':
-                response = self.model.generate_content(prompt)
-                return response.text
-                
-            elif self.provider == 'openai':
-                response = self.client.ChatCompletion.create(
-                    model=self.model_name,
-                    messages=[
-                        {"role": "system", "content": "You are an Azure Solutions Architect. Return only valid JSON."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    temperature=0.1
-                )
-                return response.choices[0].message.content
-                
-            elif self.provider == 'anthropic':
-                message = self.client.messages.create(
-                    model=self.model_name,
-                    max_tokens=3000,
-                    temperature=0.1,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                return message.content[0].text
-                
-            elif self.provider == 'azure_openai':
-                 response = self.client.ChatCompletion.create(
-                    engine=self.deployment_name,
-                    messages=[
-                        {"role": "system", "content": "You are an Azure Solutions Architect. Return only valid JSON."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    temperature=0.1
-                )
-                 return response.choices[0].message.content
-                 
-        except Exception as e:
-            print(f" AI Update API call failed: {e}")
-            raise
+        # All providers failed
+        print(f" All {len(self.failover_providers)} providers failed for update")
+        raise Exception(f"All AI providers exhausted. Last error: {last_error}")
 
     def _build_update_prompt(self, current: Dict, modification: str) -> str:
         """Build prompt for updating architecture"""
