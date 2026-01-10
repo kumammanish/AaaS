@@ -389,6 +389,138 @@ IMPORTANT:
         """Get default display name for service type"""
         return self.service_types.get(service_type, service_type.title())
 
+    def update_architecture(self, current_architecture: Dict, modification: str) -> Dict:
+        """
+        Update existing architecture based on modification request
+        """
+        try:
+            print(f"\n Updating architecture with: {modification}")
+            
+            # Step 1: Generate updated architecture using AI
+            updated_json = self._call_ai_update(current_architecture, modification)
+            
+            # Step 2: Parse and validate JSON
+            architecture = self._parse_json_response(updated_json)
+            
+            # Step 3: Convert to internal format (re-using existing logic but keeping IDs if possible)
+            # For simplicity in this version, we regenerate IDs to ensure consistency
+            result = self._convert_to_internal_format(architecture, f"{current_architecture.get('description', '')} + {modification}")
+            
+            return result
+
+        except Exception as e:
+            print(f" AI update error: {e}")
+            raise
+
+    def _call_ai_update(self, current: Dict, modification: str) -> str:
+        """Call AI to update architecture"""
+        prompt = self._build_update_prompt(current, modification)
+        
+        # Re-use existing call_ai logic but with new prompt
+        # We need to temporarily swap the prompt builder or just call the low-level provider methods
+        # To avoid code duplication, we'll implement a direct call helper or just duplicate the provider switch here
+        # consistently with _call_ai
+        
+        try:
+            if self.provider == 'gemini':
+                response = self.model.generate_content(prompt)
+                return response.text
+                
+            elif self.provider == 'openai':
+                response = self.client.ChatCompletion.create(
+                    model=self.model_name,
+                    messages=[
+                        {"role": "system", "content": "You are an Azure Solutions Architect. Return only valid JSON."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.1
+                )
+                return response.choices[0].message.content
+                
+            elif self.provider == 'anthropic':
+                message = self.client.messages.create(
+                    model=self.model_name,
+                    max_tokens=3000,
+                    temperature=0.1,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                return message.content[0].text
+                
+            elif self.provider == 'azure_openai':
+                 response = self.client.ChatCompletion.create(
+                    engine=self.deployment_name,
+                    messages=[
+                        {"role": "system", "content": "You are an Azure Solutions Architect. Return only valid JSON."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.1
+                )
+                 return response.choices[0].message.content
+                 
+        except Exception as e:
+            print(f" AI Update API call failed: {e}")
+            raise
+
+    def _build_update_prompt(self, current: Dict, modification: str) -> str:
+        """Build prompt for updating architecture"""
+        
+        # Simplify current architecture for the prompt to save tokens and focus AI
+        simple_current = {
+            "components": [{"type": c["type"], "display_name": c["display_name"], "layer": c["layer"]} for c in current.get("components", [])],
+            "connections": [{"from_type": self._get_type_from_id(c["from"], current), "to_type": self._get_type_from_id(c["to"], current), "label": c.get("label", "")} for c in current.get("connections", [])]
+        }
+        
+        prompt = f"""You are an Azure Solutions Architect. Update the following architecture based on the user's request.
+
+CURRENT ARCHITECTURE (JSON):
+{json.dumps(simple_current, indent=2)}
+
+USER MODIFICATION REQUEST:
+"{modification}"
+
+TASK:
+1. Analyze the current architecture and the user's request.
+2. Add, remove, or modify components and connections as requested.
+3. Ensure the resulting architecture is valid and follows best practices.
+4. Return the COMPLETE updated architecture as valid JSON.
+
+RETURN FORMAT (JSON ONLY):
+{{
+  "components": [
+    {{
+      "type": "service_type",
+      "display_name": "Human readable name",
+      "layer": "layer_name",
+      "quantity": 1
+    }}
+  ],
+  "connections": [
+    {{
+      "from_type": "source_type",
+      "to_type": "target_type",
+      "label": "Connection label",
+      "type": "routes_to"
+    }}
+  ]
+}}
+
+AVAILABLE SERVICES:
+{self._get_service_list()}
+
+IMPORTANT:
+- Return the FULL updated architecture schema, not just the diff.
+- Keep existing components unless explicitly asked to remove them.
+- Ensure all new components are connected logically.
+"""
+        return prompt
+
+    def _get_type_from_id(self, comp_id: str, architecture: Dict) -> str:
+        """Helper to look up type from ID"""
+        for comp in architecture.get("components", []):
+            if comp["id"] == comp_id:
+                return comp["type"]
+        return "unknown"
+
     def _get_service_list(self) -> str:
         """Get formatted list of available services"""
         categories = {

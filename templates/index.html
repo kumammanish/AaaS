@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Azure Architecture Diagram Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
@@ -12,10 +15,11 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
+            <div class="logo-container">
+                <a href="https://kumammanish.github.io/" target="_blank" class="mk-logo"
+                    title="Visit Manish Kumar's Website" style="text-decoration: none;">Manish Kumar</a>
+            </div>
             <div class="header-content">
-                <div class="logo-container">
-                    <div class="mk-logo" title="Manish Kumar">MK</div>
-                </div>
                 <h1> Azure Architecture Diagram Generator</h1>
                 <p class="subtitle">Transform natural language descriptions into professional Azure architecture
                     diagrams</p>
@@ -103,6 +107,18 @@
                         <img id="diagramImage" src="" alt="Generated Architecture Diagram">
                     </div>
                     <div id="metadata" class="metadata"></div>
+
+                    <!-- Refinement Section -->
+                    <div id="refineSection" class="refine-section"
+                        style="margin-top: 20px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 20px;">
+                        <h4 style="margin-bottom: 10px; color: var(--primary-color);">Refine Diagram</h4>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="refineInput"
+                                placeholder="E.g., Add a firewall, connect web app to redis..."
+                                style="flex: 1; padding: 10px; border: 2px solid #E0E0E0; border-radius: 8px;">
+                            <button id="refineBtn" class="btn btn-primary" style="flex: 0 0 auto;">Update</button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Placeholder -->

@@ -21,7 +21,7 @@ CORS(app)
 
 # Configuration
 UPLOAD_FOLDER = os.path.join(tempfile.gettempdir(), 'azure_diagrams')
-OUTPUT_FOLDER = os.path.join(os.path.dirname(__file__), 'output')
+OUTPUT_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'output'))
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
@@ -120,15 +120,26 @@ def generate_diagram():
             if 'drawio' in result.get('output_files', {}):
                 file_urls['drawio'] = f'/download/{diagram_name}.drawio'
 
+            # Add requested format if different from png/dot
+            if output_format and output_format not in ['png', 'dot']:
+                 file_urls[output_format] = f'/download/{diagram_name}.{output_format}'
+
             return jsonify({
                 'success': True,
-                'diagram_url': f'/download/{diagram_name}.{output_format}',  # Backward compatibility
+                'diagram_url': f'/download/{diagram_name}.png',  # Always return PNG for display
                 'file_urls': file_urls,  # All available formats
                 'architecture': parsed_architecture,
                 'metadata': {
                     'generated_at': timestamp,
                     'format': result.get('format', output_format),  # Updated format string
                     'components': len(parsed_architecture.get('components', []))
+                },
+                'local_paths': {
+                    'folder': app.config['OUTPUT_FOLDER'],
+                    'png': os.path.join(app.config['OUTPUT_FOLDER'], f"{diagram_name}.png"),
+                    'dot': os.path.join(app.config['OUTPUT_FOLDER'], f"{diagram_name}.dot"),
+                    'drawio': os.path.join(app.config['OUTPUT_FOLDER'], f"{diagram_name}.drawio") if 'drawio' in result.get('output_files', {}) else None,
+                    output_format: os.path.join(app.config['OUTPUT_FOLDER'], f"{diagram_name}.{output_format}") if output_format not in ['png', 'dot', 'drawio'] else None
                 }
             })
         else:
@@ -158,6 +169,79 @@ def parse_description():
             'component_count': len(parsed_architecture.get('components', [])),
             'connections': len(parsed_architecture.get('connections', []))
         })
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/refine', methods=['POST'])
+def refine_diagram():
+    """
+    Refine existing diagram based on new instructions
+    """
+    try:
+        data = request.get_json()
+
+        if not data or 'current_architecture' not in data or 'modification' not in data:
+            return jsonify({'error': 'Missing current_architecture or modification'}), 400
+
+        current_architecture = data['current_architecture']
+        modification = data['modification']
+        output_format = data.get('format', 'png')
+        style = data.get('style', 'default')
+        
+        # Use AI parser for refinement (requires AI capabilities)
+        if not USE_AI_PARSER:
+             return jsonify({'error': 'Refinement requires AI features to be enabled (USE_AI_PARSER=true)'}), 400
+             
+        # Update architecture
+        updated_architecture = nl_parser.update_architecture(current_architecture, modification)
+
+        # Generate unique filename
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        diagram_name = f"azure_arch_{timestamp}"
+        output_path = os.path.join(app.config['OUTPUT_FOLDER'], diagram_name)
+
+        # Generate diagram
+        result = diagram_generator.generate(
+            architecture=updated_architecture,
+            output_path=output_path,
+            output_format=output_format,
+            style=style
+        )
+
+        if result['success']:
+            # Build file URLs
+            file_urls = {
+                'png': f'/download/{diagram_name}.png',
+                'dot': f'/download/{diagram_name}.dot'
+            }
+            
+            if 'drawio' in result.get('output_files', {}):
+                file_urls['drawio'] = f'/download/{diagram_name}.drawio'
+                
+            if output_format and output_format not in ['png', 'dot']:
+                 file_urls[output_format] = f'/download/{diagram_name}.{output_format}'
+
+            return jsonify({
+                'success': True,
+                'diagram_url': f'/download/{diagram_name}.png',
+                'file_urls': file_urls,
+                'architecture': updated_architecture,
+                'metadata': {
+                    'generated_at': timestamp,
+                    'format': result.get('format', output_format),
+                    'components': len(updated_architecture.get('components', []))
+                },
+                'local_paths': {
+                    'folder': app.config['OUTPUT_FOLDER'],
+                    'png': os.path.join(app.config['OUTPUT_FOLDER'], f"{diagram_name}.png"),
+                    'dot': os.path.join(app.config['OUTPUT_FOLDER'], f"{diagram_name}.dot"),
+                    'drawio': os.path.join(app.config['OUTPUT_FOLDER'], f"{diagram_name}.drawio") if 'drawio' in result.get('output_files', {}) else None,
+                    output_format: os.path.join(app.config['OUTPUT_FOLDER'], f"{diagram_name}.{output_format}") if output_format not in ['png', 'dot', 'drawio'] else None
+                }
+            })
+        else:
+            return jsonify({'error': result.get('error', 'Generation failed')}), 500
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -204,7 +288,7 @@ def download_file(filename):
         if not os.path.exists(file_path):
             return jsonify({'error': 'File not found'}), 404
 
-        return send_file(file_path, as_attachment=True)
+        return send_file(file_path)
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500

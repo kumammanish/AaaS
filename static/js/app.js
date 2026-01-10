@@ -27,10 +27,17 @@ class DiagramApp {
         this.metadata = document.getElementById('metadata');
         this.examplesContainer = document.getElementById('examplesContainer');
 
+        this.refineSection = document.getElementById('refineSection');
+        this.refineInput = document.getElementById('refineInput');
+        this.refineBtn = document.getElementById('refineBtn');
+
+        this.currentArchitecture = null;
+
         // Attach event listeners
         this.parseBtn.addEventListener('click', () => this.handleParse());
         this.generateBtn.addEventListener('click', () => this.handleGenerate());
         this.downloadBtn.addEventListener('click', () => this.handleDownload());
+        this.refineBtn.addEventListener('click', () => this.handleRefine());
 
         // Load examples
         this.loadExamples();
@@ -143,6 +150,7 @@ class DiagramApp {
             const data = await response.json();
 
             if (data.success) {
+                this.currentArchitecture = data.architecture;
                 this.showDiagram(data);
             } else {
                 this.showError(data.error || 'Failed to generate diagram');
@@ -154,9 +162,71 @@ class DiagramApp {
         }
     }
 
+    async handleRefine() {
+        const modification = this.refineInput.value.trim();
+        const format = this.formatSelect.value;
+        const style = this.styleSelect.value;
+
+        if (!modification) {
+            this.showError('Please enter a modification request');
+            return;
+        }
+
+        if (!this.currentArchitecture) {
+            this.showError('No active diagram to refine. Please generate one first.');
+            return;
+        }
+
+        this.hideAll();
+        this.showLoading('Refining your architecture...');
+        this.disableButtons();
+        this.refineBtn.disabled = true;
+
+        try {
+            const response = await fetch(`${this.apiBaseUrl}/refine`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    current_architecture: this.currentArchitecture,
+                    modification: modification,
+                    format,
+                    style
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                this.currentArchitecture = data.architecture;
+                this.refineInput.value = ''; // Clear input
+                this.showDiagram(data);
+            } else {
+                this.showError(data.error || 'Failed to refine diagram');
+                // Re-show diagram output if failure, so state isn't lost
+                if (this.currentArchitecture) {
+                    // Ideally we'd restore view, but simple error showing is fine for MVP
+                }
+            }
+        } catch (error) {
+            this.showError(`Error: ${error.message}`);
+        } finally {
+            this.enableButtons();
+            this.refineBtn.disabled = false;
+        }
+    }
+
     handleDownload() {
         if (this.currentDiagramUrl) {
-            window.open(this.currentDiagramUrl, '_blank');
+            const link = document.createElement('a');
+            link.href = this.currentDiagramUrl;
+            // Extract filename from URL
+            const filename = this.currentDiagramUrl.split('/').pop();
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     }
 
@@ -216,8 +286,34 @@ class DiagramApp {
                 <div>
                     <strong>Components:</strong> ${metadata.components}
                 </div>
-            </div>
-        `;
+            </div>`;
+
+        // Add local paths if available
+        if (data.local_paths) {
+            const paths = data.local_paths;
+            const urls = data.file_urls || {};
+
+            const createLink = (label, path, url) => `
+                <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+                    <strong style="color: var(--primary-color); min-width: 60px;">${label}:</strong> 
+                    <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${path}">${path}</span>
+                    ${url ? `<a href="${url}" download class="btn-sm" style="background: var(--primary-color); color: white; padding: 2px 8px; border-radius: 4px; text-decoration: none; font-size: 0.9em;">Download</a>` : ''}
+                </div>`;
+
+            this.metadata.innerHTML += `
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.1); width: 100%;">
+                    <h4 style="margin-bottom: 8px; font-size: 0.9em; color: var(--text-secondary); text-transform: uppercase;">Generated Files</h4>
+                    <div style="background: rgba(0,0,0,0.03); padding: 10px; border-radius: 8px; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.85em; color: var(--text-primary);">
+                        ${paths.drawio ? createLink('Draw.io', paths.drawio, urls.drawio) : ''}
+                        ${createLink('DOT', paths.dot, urls.dot)}
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <strong style="color: var(--primary-color); min-width: 60px;">Folder:</strong> 
+                            <span title="${paths.folder}">${paths.folder}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
     }
 
     showLoading(message = 'Loading...') {
@@ -262,7 +358,7 @@ class DiagramApp {
         const second = timestamp.substring(13, 15);
 
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
         return `${months[parseInt(month) - 1]} ${day}, ${year} ${hour}:${minute}:${second}`;
     }

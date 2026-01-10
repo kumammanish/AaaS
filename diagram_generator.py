@@ -120,10 +120,15 @@ class DiagramGenerator:
                 "compound": "true",  # Enable proper icon rendering
             }
 
+            # Determine formats to generate
+            formats = ["png", "dot"]
+            if output_format and output_format not in ["png", "dot"]:
+                formats.append(output_format)
+
             with Diagram(
                 architecture.get('description', 'Azure Architecture'),
                 filename=output_path,
-                outformat=["png", "dot"],  # Generate both PNG and DOT files
+                outformat=formats,
                 show=False,
                 direction="TB",
                 graph_attr=graph_attr
