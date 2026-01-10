@@ -231,6 +231,8 @@ GET /api/health
 
 ---
 
-**Made with ❤️ for the Azure community**
+##  License
 
-**For complete documentation, see [howto/](howto/) directory**
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for open source software acknowledgments.
