@@ -326,6 +326,24 @@ You should see the **Architecture as a Service** web interface!
 
 ---
 
+## 💡 Supported Services
+
+### Monitoring
+- Azure Monitor
+- Application Insights
+- Grafana (Integration)
+- Power BI (Integration)
+
+### Collaboration (Integration)
+- Jira
+- Confluence
+- GitHub
+
+### IoT
+- IoT Hub
+
+---
+
 ## 📁 Output Files
 
 Generated diagrams are saved in `output/` directory:
@@ -572,8 +590,7 @@ Check server output for:
 ## 🎓 Next Steps
 
 ### 1. Learn Best Practices
-- Read [ARCHITECTURE_EXPLAINED.md](ARCHITECTURE_EXPLAINED.md)
-- Review [AI_IMPLEMENTATION_TEST_RESULTS.md](AI_IMPLEMENTATION_TEST_RESULTS.md)
+- Review `WORKFLOW_GUIDE.md` to understand the generation process.
 
 ### 2. Explore Features
 - Try different AI providers
@@ -592,11 +609,11 @@ Check server output for:
 
 ---
 
-##  Additional Resources
+## Additional Resources
 
 ### Documentation
-- [DRAW_IO_UPDATE_SUMMARY.md](DRAW_IO_UPDATE_SUMMARY.md) - draw.io compatibility
-- [WORKFLOW_SIMPLIFICATION_AND_ICONS_UPDATE.md](WORKFLOW_SIMPLIFICATION_AND_ICONS_UPDATE.md) - Connection optimization
+- [WORKFLOW_GUIDE.md](WORKFLOW_GUIDE.md) - Workflow and Connection logic
+- [AI_INTEGRATION.md](AI_INTEGRATION.md) - AI & MCP Integration details
 
 ### API Endpoints
 
@@ -658,6 +675,7 @@ Your Architecture as a Service is now set up and ready to use!
 
 ---
 
-**Version**: 1.0
-**Last Updated**: December 1, 2024
+**Version**: 1.1.0
+**Last Updated**: January 10, 2026
+**Status**:  Production Ready
 **Support**: [GitHub Issues](https://github.com/yourusername/AaaS/issues)

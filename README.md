@@ -80,20 +80,10 @@ Add Grafana for monitoring and connect the web app to a Redis cache
 
 All comprehensive guides are in the **[howto/](howto/)** directory:
 
-### Getting Started
-- **[SETUP_GUIDE.md](howto/SETUP_GUIDE.md)** - Complete setup walkthrough
-- **[QUICK_AI_SETUP.md](howto/QUICK_AI_SETUP.md)** - 5-minute AI setup
-
-### Architecture & Implementation
-- **[ARCHITECTURE_EXPLAINED.md](howto/ARCHITECTURE_EXPLAINED.md)** - How it works
-- **[AI_MCP_INTEGRATION_GUIDE.md](howto/AI_MCP_INTEGRATION_GUIDE.md)** - AI integration details
-- **[AI_IMPLEMENTATION_TEST_RESULTS.md](howto/AI_IMPLEMENTATION_TEST_RESULTS.md)** - Performance tests
-
-### Features & Updates
-- **[DRAW_IO_UPDATE_SUMMARY.md](howto/DRAW_IO_UPDATE_SUMMARY.md)** - draw.io compatibility
-- **[WORKFLOW_SIMPLIFICATION_AND_ICONS_UPDATE.md](howto/WORKFLOW_SIMPLIFICATION_AND_ICONS_UPDATE.md)** - Connection optimization
-- **[SVG_DRAWIO_GUIDE.md](howto/SVG_DRAWIO_GUIDE.md)** - SVG and draw.io guide
-- **[TEST_RESULTS.md](howto/TEST_RESULTS.md)** - Test results
+### User Guides
+- **[GETTING_STARTED.md](howto/GETTING_STARTED.md)** - Complete setup and usage instructions
+- **[WORKFLOW_GUIDE.md](howto/WORKFLOW_GUIDE.md)** - Understanding the generation workflow
+- **[AI_INTEGRATION.md](howto/AI_INTEGRATION.md)** - Enable AI and MCP capabilities
 
 ---
 
@@ -134,10 +124,10 @@ ArchitectureasService/
 ├── static/                     # CSS, JS, assets
 ├── output/                     # Generated diagrams
 └── howto/                      # Documentation
-    ├── SETUP_GUIDE.md          # Setup instructions
-    ├── ARCHITECTURE_EXPLAINED.md
-    ├── AI_IMPLEMENTATION_TEST_RESULTS.md
-    └── ... (more guides)
+└── howto/                      # Documentation
+    ├── GETTING_STARTED.md      # Setup instructions
+    ├── WORKFLOW_GUIDE.md       # Workflow details
+    └── AI_INTEGRATION.md       # AI configuration
 ```
 
 ---
@@ -184,7 +174,7 @@ sudo apt-get install graphviz  # Linux
 lsof -ti:5001 | xargs kill -9
 ```
 
-**See [SETUP_GUIDE.md](howto/SETUP_GUIDE.md) for complete troubleshooting**
+**See [GETTING_STARTED.md](howto/GETTING_STARTED.md) for complete troubleshooting**
 
 ---
 
