@@ -23,6 +23,40 @@
 
 ##  Installation Steps
 
+### 🔄 Installation Workflow
+```mermaid
+graph TD
+    Start([Start]) -->|1. Clone Repo| Git[Git Clone]
+    Git -->|2. Install GraphViz| GV{OS Selection}
+    
+    GV -->|macOS| Brew[brew install graphviz]
+    GV -->|Linux| Apt[apt-get install graphviz]
+    GV -->|Windows| Win[Installer]
+    
+    Brew --> Venv
+    Apt --> Venv
+    Win --> Venv
+    
+    Venv[3. Create Venv] -->|source activate| Dep[4. Install Dependencies]
+    Dep -->|pip install -r requirements.txt| API{5. API Key}
+    
+    API -->|Gemini Free| Env[.env Configuration]
+    API -->|OpenAI| Env
+    API -->|Claude| Env
+    
+    Env -->|6. Run| App[python app.py]
+    App -->|http://localhost:5001| Browser([Browser UI])
+    
+    style Start fill:#e1f5fe,stroke:#01579b
+    style Git fill:#f3e5f5,stroke:#4a148c
+    style GV fill:#fff3e0,stroke:#e65100
+    style Venv fill:#e8f5e9,stroke:#1b5e20
+    style Dep fill:#e8f5e9,stroke:#1b5e20
+    style API fill:#ffebee,stroke:#c62828
+    style App fill:#e3f2fd,stroke:#1565c0
+    style Browser fill:#e1f5fe,stroke:#01579b
+```
+
 ### 1. Clone Repository
 
 ```bash

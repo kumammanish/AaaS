@@ -12,44 +12,35 @@
 
 ---
 
-##  Recommended Architecture
+## Recommended Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    USER INPUT (Natural Language)                │
-│  "Build a scalable e-commerce platform with global reach"      │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ↓
-┌─────────────────────────────────────────────────────────────────┐
-│                   INTELLIGENT ORCHESTRATOR                      │
-│                                                                 │
-│  Step 1: Extract intent & requirements                         │
-│          ↓ (Gemini Flash - Fast & Cheap)                       │
-│                                                                 │
-│  Step 2: Query Azure best practices                            │
-│          ↓ (Azure Design MCP - Free, Specialized)              │
-│                                                                 │
-│  Step 3: Generate architecture                                 │
-│          ↓ (Gemini Pro - Context-aware)                        │
-│                                                                 │
-│  Step 4: Validate & optimize                                   │
-│          ↓ (Azure Well-Architected MCP - Free)                 │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ↓
-                   Components List
-                         │
-                         ↓
-                  Diagram Generator
-                         │
-                         ↓
-                    SVG Output
+```mermaid
+graph TD
+    User([User Input]) -->|Natural Language| Orch[Intelligent Orchestrator]
+    
+    subgraph "Orchestration Pipeline"
+        Orch -->|Step 1: Extract Intent| GemFlash[Gemini Flash<br/>Fast & Cheap]
+        GemFlash -->|Intent| MCP_Design[Azure Design MCP<br/>Best Practices]
+        MCP_Design -->|Recommendations| GemPro[Gemini Pro<br/>Context Aware]
+        GemPro -->|Draft Architecture| MCP_Well[Azure Well-Architected MCP<br/>Validation]
+    end
+    
+    MCP_Well -->|Validated Components| Gen[Diagram Generator]
+    Gen -->|Python Diagrams| SVG[Output Files]
+    
+    style User fill:#e1f5fe,stroke:#01579b
+    style Orch fill:#fce4ec,stroke:#880e4f
+    style GemFlash fill:#fff3e0,stroke:#e65100
+    style MCP_Design fill:#e8f5e9,stroke:#1b5e20
+    style GemPro fill:#fff3e0,stroke:#e65100
+    style MCP_Well fill:#e8f5e9,stroke:#1b5e20
+    style Gen fill:#e3f2fd,stroke:#1565c0
+    style SVG fill:#f3e5f5,stroke:#4a148c
 ```
 
 ---
 
-##  Integration Plan
+## Integration Plan
 
 ### Phase 1: Add Google Gemini (Recommended First)
 
