@@ -37,10 +37,11 @@ python app.py
 ##  Features
 
 -  **Multi-Provider AI**: Google Gemini (FREE), OpenAI, Claude, Azure OpenAI
+-  **Interactive Refinement**: Edit diagrams naturally (e.g., "Add a firewall", "Connect web app to Redis")
 -  **30+ Azure Services**: Compute, Database, Storage, Network, Security, AI/ML
+-  **Extended Icon Support**: PowerBI, Grafana, Jira, Confluence, GitHub
 -  **Editable Diagrams**: PNG, DOT, draw.io formats
 -  **Simplified Workflows**: Clean connections (67-90% reduction)
--  **Integration Icons**: GitHub, MCP servers, Confluence
 -  **Easy Setup**: 5-minute installation
 -  **Web Interface**: Simple, intuitive UI
 
@@ -53,14 +54,19 @@ python app.py
 Build a scalable e-commerce platform with payment processing
 ```
 
-**Generated** (13 components):
+**Refinement**:
+```
+Add Grafana for monitoring and connect the web app to a Redis cache
+```
+
+**Generated** (15 components):
 - Application Gateway + WAF
 - Web Frontend (load balanced)
 - API Management
 - Backend APIs (multiple instances)
 - SQL Database + Cosmos DB
 - Redis Cache + Key Vault
-- Application Insights + Azure Monitor
+- Application Insights + Azure Monitor + Grafana
 - Virtual Network
 
 **Output Files**:
@@ -95,7 +101,10 @@ All comprehensive guides are in the **[howto/](howto/)** directory:
 
 **Azure Services**: App Service, Azure Functions, VM, AKS, Container Instances, SQL Database, Cosmos DB, MySQL, PostgreSQL, Redis Cache, Blob Storage, Data Lake, VNet, Application Gateway, Load Balancer, Firewall, Key Vault, API Management, Service Bus, Event Hub, Event Grid, Synapse Analytics, Data Factory, Stream Analytics, Azure Monitor, Application Insights, ML Workspace, Cognitive Services, IoT Hub
 
-**Integrations**: GitHub, Confluence, MCP Servers, Generic Servers
+**Integrations**: 
+- **Monitoring/Analytics**: Power BI, Grafana
+- **Collaboration**: Jira, Confluence, GitHub
+- **Servers**: MCP Servers, Generic Servers
 
 ---
 
@@ -140,14 +149,14 @@ ArchitectureasService/
 Create a web application with database and caching
 ```
 
-**CI/CD Pipeline**:
+**Analytics Platform**:
 ```
-CI/CD pipeline with GitHub, Azure Container Registry, and AKS deployment
+Data pipeline with Data Factory, Synapse, and Power BI for visualization
 ```
 
-**IoT Platform**:
+**DevOps & Monitoring**:
 ```
-IoT data processing platform with device connectivity and real-time analytics
+AKS cluster with Grafana monitoring and GitHub integration
 ```
 
 **Microservices**:
@@ -194,6 +203,15 @@ lsof -ti:5001 | xargs kill -9
 POST /api/generate
 {
   "description": "Your architecture description",
+  "format": "png",
+  "style": "default"
+}
+
+# Refine diagram (Interactive)
+POST /api/refine
+{
+  "current_architecture": {...},
+  "modification": "Add a firewall",
   "format": "png",
   "style": "default"
 }

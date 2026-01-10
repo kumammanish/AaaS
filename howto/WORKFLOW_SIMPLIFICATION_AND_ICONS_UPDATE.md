@@ -3,6 +3,52 @@
 **Date**: December 1, 2024
 **Status**:  **IMPLEMENTED**
 
+## 🔄 Repository Workflow
+
+```mermaid
+graph TD
+    User([User Input]) -->|Text Description| Frontend[Web Frontend]
+    Frontend -->|POST /api/generate| API[Flask API]
+    
+    subgraph "Backend Processing"
+        API -->|Description| Parser{Parser Selection}
+        Parser -->|USE_AI_PARSER=False| KW[Keyword Parser]
+        Parser -->|USE_AI_PARSER=True| AI[AI Parser]
+        
+        KW -->|Regex/Dict| Arch[Architecture JSON]
+        
+        AI -->|Prompt| LLM[LLM Provider]
+        LLM -->|JSON Response| Arch
+        
+        LLM -.->|Gemini| G[Google Gemini]
+        LLM -.->|GPT-4| O[OpenAI]
+        LLM -.->|Claude| C[Anthropic]
+    end
+    
+    Arch -->|JSON| Gen[Diagram Generator]
+    
+    subgraph "Visualization"
+        Gen -->|Python Diagrams| D[Diagrams Lib]
+        D -->|GraphViz| Render[Render Engine]
+        Render -->|Generate| Files[Output Files]
+    end
+    
+    Files -->|.png| PNG[PNG Image]
+    Files -->|.dot| DOT[DOT File]
+    Files -->|.drawio| DRAW[Draw.io File]
+    
+    Files -->|File Paths| API
+    API -->|JSON Response| Frontend
+    Frontend -->|Display| UserView([User View])
+    
+    style User fill:#e1f5fe,stroke:#01579b
+    style Frontend fill:#e3f2fd,stroke:#1565c0
+    style API fill:#fff3e0,stroke:#e65100
+    style AI fill:#fce4ec,stroke:#880e4f
+    style Arch fill:#e8f5e9,stroke:#1b5e20
+    style UserView fill:#e1f5fe,stroke:#01579b
+```
+
 ---
 
 ##  Issues Addressed

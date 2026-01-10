@@ -23,6 +23,8 @@ from diagrams.azure.iot import IotHub
 # Non-Azure icons for integrations
 from diagrams.onprem.vcs import Github
 from diagrams.onprem.compute import Server
+from diagrams.onprem.monitoring import Grafana
+from diagrams.onprem.analytics import PowerBI
 from diagrams.generic.compute import Rack
 
 class DiagramGenerator:
@@ -61,10 +63,13 @@ class DiagramGenerator:
             'monitor': LogAnalyticsWorkspaces,
             'appinsights': ApplicationInsights,
             'iothub': IotHub,
+            'powerbi': PowerBI,
             # Non-Azure Integrations
             'github': Github,
+            'grafana': Grafana,
+            'jira': Server,  # Use Server icon as fallback for Jira
+            'confluence': Rack,   # Use Rack icon as fallback for Confluence
             'mcpserver': Server,  # MCP Server (Model Context Protocol)
-            'confluence': Rack,   # Using Rack as placeholder for Confluence
             'genericserver': Server
         }
 

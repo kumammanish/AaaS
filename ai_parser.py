@@ -378,10 +378,13 @@ IMPORTANT:
             'monitor': 'Azure Monitor',
             'appinsights': 'Application Insights',
             'iothub': 'IoT Hub',
+            'powerbi': 'Power BI',
             # Non-Azure Integrations
             'github': 'GitHub',
-            'mcpserver': 'MCP Server',
+            'grafana': 'Grafana',
+            'jira': 'Jira',
             'confluence': 'Confluence',
+            'mcpserver': 'MCP Server',
             'genericserver': 'Server'
         }
 
@@ -531,11 +534,11 @@ IMPORTANT:
             'Network': ['vnet', 'appgateway', 'loadbalancer', 'firewall'],
             'Security': ['keyvault'],
             'Messaging': ['servicebus', 'eventhub', 'eventgrid'],
-            'Analytics': ['synapse', 'datafactory', 'streamanalytics'],
-            'Monitoring': ['monitor', 'appinsights'],
+            'Analytics': ['synapse', 'datafactory', 'streamanalytics', 'powerbi'],
+            'Monitoring': ['monitor', 'appinsights', 'grafana'],
             'AI/ML': ['mlworkspace', 'cognitiveservices'],
             'IoT': ['iothub'],
-            'Integrations': ['github', 'mcpserver', 'confluence', 'genericserver']
+            'Integrations': ['github', 'jira', 'confluence', 'mcpserver', 'genericserver']
         }
 
         result = []
